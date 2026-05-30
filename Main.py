@@ -2,36 +2,54 @@ import os
 import time
 from src.utils import read_tsp_file, calculate_distance_matrix, calculate_total_distance, validate_tour
 from src.greedy import cheapest_insertion, nearest_neighbor
+from src.local_search import node_swap, two_opt
 
 def main():
-    data_path = os.path.join("data", "eil51.tsp")
-    coords = read_tsp_file(data_path)
-    distance_matrix = calculate_distance_matrix(coords)
-    num_cities = len(coords)
+    tsp_files = ["eil51.tsp", "kroA100.tsp", "ch150.tsp"]
     
-    print("==================================================")
-    print("      COMPARING GREEDY TSP APPROACHES             ")
-    print("==================================================\n")
+    #Danh sách cấu hình tự động: Tên hiển thị, Hàm Greedy, Hàm Local Search
+    configs = [
+        ('Greedy 1 (Cheapest Insertion)', cheapest_insertion, None),
+        ('Greedy 1 + Local Search (Swap)', cheapest_insertion, node_swap),
+        ('Greedy 1 + Local Search (2-opt)', cheapest_insertion, two_opt),
+        ('Greedy 2 (Nearest Neighbor)', nearest_neighbor, None),
+        ('Greedy 2 + Local Search (Swap)', nearest_neighbor, node_swap),
+        ('Greedy 2 + Local Search (2-opt)', nearest_neighbor, two_opt)
+    ]
     
-    #Chạy thuật toán được giao: Cheapest Insertion
-    t0 = time.time()
-    t_cheapest = cheapest_insertion(distance_matrix)
-    dt_cheapest = (time.time() - t0) * 1000
-    dist_cheapest = calculate_total_distance(t_cheapest, distance_matrix)
-    v_cheapest = "YES" if validate_tour(t_cheapest, num_cities) else "NO"
-    
-    #Chạy Mở rộng thuật toán mở rộng: Nearest Neighbor
-    t1 = time.time()
-    t_nearest = nearest_neighbor(distance_matrix)
-    dt_nearest = (time.time() - t1) * 1000
-    dist_nearest = calculate_total_distance(t_nearest, distance_matrix)
-    v_nearest = "YES" if validate_tour(t_nearest, num_cities) else "NO"
-    
-    # In bảng so sánh hiệu suất
-    print(f"{'Approach':<25} | {'Total Distance':<15} | {'Time (ms)':<10} | {'Valid?':<6}")
-    print("-" * 65)
-    print(f"{'Cheapest Insertion':<25} | {dist_cheapest:<15.2f} | {dt_cheapest:<10.2f} | {v_cheapest:<6}")
-    print(f"{'Nearest Neighbor':<25} | {dist_nearest:<15.2f} | {dt_nearest:<10.2f} | {v_nearest:<6}")
+    for filename in tsp_files:
+        data_path = os.path.join("data", filename)
+        if not os.path.exists(data_path):
+            continue
+            
+        coords = read_tsp_file(data_path)
+        num_cities = len(coords)
+        if num_cities < 2:
+            continue
+            
+        distance_matrix = calculate_distance_matrix(coords)
+        
+        print("\n" + "="*80)
+        print(f"      EXPERIMENTAL RESULTS FOR DATASET: {filename.upper()} ({num_cities} Cities)")
+        print("="*80)
+        print(f"{'Cách tiếp cận (Approach)':<35} | {'Tổng quãng đường':<16} | {'Thời gian (ms)':<14} | {'Valid?'}")
+        print("-" * 80)
+        
+        #Vòng lặp tự động chạy qua từng cấu hình thuật toán
+        for name, tour_builder, local_search in configs:
+            start_time = time.time()
+            
+            #Khởi tạo và tối ưu hóa lộ trình
+            tour = tour_builder(distance_matrix)
+            if local_search:
+                tour = local_search(tour, distance_matrix)
+                
+            exec_time = (time.time() - start_time) * 1000
+            dist = calculate_total_distance(tour, distance_matrix)
+            valid = "YES" if validate_tour(tour, num_cities) else "NO"
+            
+            print(f"{name:<35} | {dist:<16.2f} | {exec_time:<14.2f} | {valid}")
+        print("="*80)
 
 if __name__ == "__main__":
     main()
