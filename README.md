@@ -23,6 +23,33 @@ Dự án thực nghiệm và tối ưu hóa bài toán Người đi du lịch (T
 ---
 
 ## Hướng dẫn chạy chương trình
+Thầy/Cô và các bạn trợ giảng có thể dễ dàng lấy mã nguồn về máy cục bộ và khởi chạy thử nghiệm trên VS Code theo đúng 3 bước chuẩn sau:
+
+1. Sao chép mã nguồn về máy (Clone / Download)
+Mở Terminal trên máy tính và chạy lệnh Git để tải dự án:
+```bash
+git clone https://github.com/wannabeAIE0277/TSP-Discrete-Math
+```
+(Hoặc Thầy/Cô có thể chọn nút Code -> Download ZIP trực tiếp trên giao diện GitHub này và thực hiện giải nén).
+
+
+2. Mở dự án bằng VS Code
+Khởi động phần mềm VS Code.
+
+Chọn File -> Open Folder... (hoặc nhấn Ctrl + K Ctrl + O).
+
+Trỏ đường dẫn và chọn đúng thư mục TSP-Discrete-Math vừa tải về.
+
+
+3. Thực thi chương trình
+Mở một Terminal mới ngay trong VS Code bằng tổ hợp phím: `Ctrl + ``
+
+Gõ câu lệnh sau để chạy file điều phối trung tâm:
+```bash
+python main.py
+```
+Hệ thống sẽ tự động nạp dữ liệu cấu hình, thực thi đồng bộ tất cả các cấu hình thuật toán và in bảng báo cáo hiệu suất của cả 3 file benchmark ngay trên màn hình Terminal.
+
 
 ## Các thuật toán đã cài đặt
 
