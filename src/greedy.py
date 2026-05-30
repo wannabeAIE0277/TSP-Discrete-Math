@@ -9,7 +9,8 @@ def cheapest_insertion(distance_matrix):
     
     #Khởi tạo chu trình ban đầu với 2 thành phố đầu tiên (0 và 1)
     tour = [0, 1]
-    visited[0] = True
+    #Cho rằng 2 thành phố đầu tiên (0 và 1) đã được đi qua
+    visited[0] = True   
     visited[1] = True
     
     #Vòng lặp chèn 49 thành phố còn lại vào chu trình
@@ -30,20 +31,21 @@ def cheapest_insertion(distance_matrix):
                     #Tính chi phí phát sinh (quãng đường tăng thêm)
                     cost = distance_matrix[city_i][k] + distance_matrix[k][city_j] - distance_matrix[city_i][city_j]
                     
+                    #Nếu quãng đường thêm hiện tại bé hơn thì sẽ cập nhật các biến best
                     if cost < min_increment:
                         min_increment = cost
                         best_city = k
                         best_position = i + 1
         
         #Chèn thành phố có chi phí thấp nhất vào vị trí tốt nhất tìm được
-        tour.insert(best_position, best_city)
-        visited[best_city] = True
+        tour.insert(best_position, best_city) #Thêm vị trí tốt nhất vào vị trí tốt nhất tìm được
+        visited[best_city] = True   #Đánh dấu thành phố vừa đi qua
         
     return tour
 
 def nearest_neighbor(distance_matrix, start_city=0):
     """
-    Nhiệm vụ mở rộng (Điểm cộng): Thuật toán Kẻ cận thị
+    Nhiệm vụ mở rộng: Thuật toán Kẻ cận thị
     Độ phức tạp thời gian: O(N^2)
     """
     num_cities = len(distance_matrix)
