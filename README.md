@@ -4,7 +4,7 @@ Dự án thực nghiệm và tối ưu hóa bài toán Người đi du lịch (T
 
 ---
 
-## 📁 Cấu trúc thư mục (Project Structure)
+##Cấu trúc thư mục (Project Structure)
 
 ```text
 ├── data/                  # Nơi lưu trữ các file dữ liệu cấu hình .tsp
@@ -22,23 +22,9 @@ Dự án thực nghiệm và tối ưu hóa bài toán Người đi du lịch (T
 
 ---
 
-## 🚀 Hướng dẫn thực thi (How to Run)
+## Hướng dẫn chạy chương trình
 
-### 1. Cài đặt và chuẩn bị
-Đảm bảo máy tính đã cài đặt Python (Phiên bản khuyến nghị >= 3.8). Di chuyển vào thư mục dự án trên Terminal:
-```bash
-cd TSP-Discrete-Math
-```
-
-### 2. Khởi chạy chương trình
-Chạy file điều khiển trung tâm để hệ thống tự động quét qua tất cả các bộ dữ liệu và xuất báo cáo thực nghiệm đồng bộ:
-```bash
-python main.py
-```
-
----
-
-## 🧠 Các thuật toán đã cài đặt (Features)
+## Các thuật toán đã cài đặt
 
 1. **Khởi tạo lộ trình (Greedy Heuristics):**
    * `Cheapest Insertion` (Nhiệm vụ bắt buộc): Kiến tạo chu trình từ lõi dựa trên chi phí hình học tăng thêm tối thiểu.
@@ -53,7 +39,7 @@ python main.py
 
 ---
 
-## 📊 Kết quả thực nghiệm thực tế (Experimental Results)
+## Kết quả
 
 Dưới đây là bảng số liệu hiệu suất thực tế thu được khi hệ thống chạy kiểm thử đồng bộ trên máy cục bộ:
 
